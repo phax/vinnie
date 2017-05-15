@@ -318,8 +318,7 @@ public class FoldedLineWriter extends Writer {
 			throw new IllegalArgumentException("Indent string length must be less than the line length.");
 		}
 
-		for (int i = 0; i < indent.length(); i++) {
-			char c = indent.charAt(i);
+		for (char c : indent.toCharArray ()) {
 			switch (c) {
 			case ' ':
 			case '\t':

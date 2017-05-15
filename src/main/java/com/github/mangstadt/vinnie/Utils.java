@@ -36,7 +36,8 @@ public final class Utils {
 	 */
 	public static String ltrim(String string) {
 		int i;
-		for (i = 0; i < string.length() && Character.isWhitespace(string.charAt(i)); i++) {
+		final int len = string.length ();
+		for (i = 0; i < len && Character.isWhitespace(string.charAt(i)); i++) {
 			//do nothing
 		}
 		return string.substring(i);
@@ -69,9 +70,8 @@ public final class Utils {
 	public static String escapeNewlines(String string) {
 		StringBuilder sb = null;
 		char prev = 0;
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
-
+		int i = 0;
+		for (char c : string.toCharArray ()) {
 			if (c == '\r' || c == '\n') {
 				if (sb == null) {
 					sb = new StringBuilder(string.length() * 2);
@@ -91,6 +91,7 @@ public final class Utils {
 			}
 
 			prev = c;
+			i++;
 		}
 		return (sb == null) ? string : sb.toString();
 	}

@@ -626,8 +626,7 @@ public class VObjectWriter implements Closeable, Flushable {
 	 * @return true if it contains at least one newline character, false if not
 	 */
 	private boolean containsNewlines(String string) {
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
+		for (char c : string.toCharArray ()) {
 			switch (c) {
 			case '\r':
 			case '\n':
@@ -643,8 +642,7 @@ public class VObjectWriter implements Closeable, Flushable {
 	 * @return true if it should be enclosed in double quotes, false if not
 	 */
 	private boolean shouldQuoteParameterValue(String value) {
-		for (int i = 0; i < value.length(); i++) {
-			char c = value.charAt(i);
+		for (char c : value.toCharArray ()) {
 			switch (c) {
 			case ',':
 			case ':':
@@ -699,9 +697,8 @@ public class VObjectWriter implements Closeable, Flushable {
 	 */
 	private String sanitizeOldStyleParameterValue(String value) {
 		StringBuilder sb = null;
-		for (int i = 0; i < value.length(); i++) {
-			char c = value.charAt(i);
-
+		int i = 0;
+		for (char c : value.toCharArray ()) {
 			if (c == '\\' || c == ';') {
 				if (sb == null) {
 					sb = new StringBuilder(value.length() * 2);
@@ -713,6 +710,7 @@ public class VObjectWriter implements Closeable, Flushable {
 			if (sb != null) {
 				sb.append(c);
 			}
+			i++;
 		}
 		return (sb == null) ? value : sb.toString();
 	}
@@ -725,9 +723,8 @@ public class VObjectWriter implements Closeable, Flushable {
 	private String applyCaretEncoding(String value) {
 		StringBuilder sb = null;
 		char prev = 0;
-		for (int i = 0; i < value.length(); i++) {
-			char c = value.charAt(i);
-
+		int i = 0;
+		for (char c : value.toCharArray ()) {
 			if (c == '^' || c == '"' || c == '\r' || c == '\n') {
 				if (c == '\n' && prev == '\r') {
 					/*
@@ -758,6 +755,7 @@ public class VObjectWriter implements Closeable, Flushable {
 			}
 
 			prev = c;
+			i++;
 		}
 		return (sb == null) ? value : sb.toString();
 	}

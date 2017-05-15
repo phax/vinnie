@@ -70,8 +70,7 @@ public class AllowedCharacters {
 	 * @return true if the string only contains allowed characters, false if not
 	 */
 	public boolean check(String string) {
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
+	  for (char c : string.toCharArray ()) {
 			if (c >= LENGTH) {
 				if (!allowNonAscii) {
 					return false;
@@ -272,8 +271,7 @@ public class AllowedCharacters {
 		}
 
 		private void setAll(String characters, boolean value) {
-			for (int i = 0; i < characters.length(); i++) {
-				char c = characters.charAt(i);
+			for (char c : characters.toCharArray ()) {
 				bitSet.set(c, value);
 			}
 		}

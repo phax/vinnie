@@ -153,8 +153,8 @@ public final class VObjectPropertyValues {
 	 */
 	public static String escape(String value) {
 		StringBuilder sb = null;
-		for (int i = 0; i < value.length(); i++) {
-			char c = value.charAt(i);
+		int i = 0;
+		for (char c : value.toCharArray ()) {
 			switch (c) {
 			case '\\':
 			case ',':
@@ -171,6 +171,7 @@ public final class VObjectPropertyValues {
 				}
 				break;
 			}
+			i++;
 		}
 		return (sb == null) ? value : sb.toString();
 	}
@@ -184,8 +185,7 @@ public final class VObjectPropertyValues {
 	 * @param sb the buffer on which to append the escaped string
 	 */
 	private static void escape(String string, boolean escapeCommas, StringBuilder sb) {
-		for (int i = 0; i < string.length(); i++) {
-			char c = string.charAt(i);
+		for (char c : string.toCharArray ()) {
 			if (c == '\\' || c == ';' || (escapeCommas && c == ',')) {
 				sb.append('\\');
 			}
